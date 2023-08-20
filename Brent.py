@@ -1,5 +1,6 @@
 import math
 import numpy as np
+from MetodosEcuacionesNoLineales import *
 
 def brent(func, lower_bound=0.0, upper_bound=1.0, tolerance=1e-12, max_iterations=100):
     """
@@ -47,7 +48,10 @@ def brent(func, lower_bound=0.0, upper_bound=1.0, tolerance=1e-12, max_iteration
         elif fa != fb:
             
             # Método de la secante
-            s = upper_bound - fb * (upper_bound - lower_bound) / (fb - fa)
+            s = MetodoSecante(func, lower_bound, upper_bound, 20)
+            # print(s)
+            # s = upper_bound - fb * (upper_bound - lower_bound) / (fb - fa)
+            # print(s)
         
         if (s < (3 * lower_bound + upper_bound) / 4 or s > upper_bound) or \
            (interpolation_flag and abs(s - upper_bound) >= abs(upper_bound - c) / 2) or \
@@ -55,7 +59,11 @@ def brent(func, lower_bound=0.0, upper_bound=1.0, tolerance=1e-12, max_iteration
            (interpolation_flag and abs(upper_bound - c) < tolerance) or (not interpolation_flag and abs(c - d) < tolerance):
                
             # Método de la bisección
-            s = (lower_bound + upper_bound) / 2
+            s = MetodoBiseccion(func, lower_bound, upper_bound, 20)
+            # print(s)
+            # s = (lower_bound + upper_bound) / 2
+            # print(s)
+            
             interpolation_flag = True
         else:
             interpolation_flag = False
